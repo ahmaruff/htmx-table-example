@@ -1,0 +1,12 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "wsl.exe",
+            "args": [
+                "/home/ahmaruff/.local/share/mise/installs/php/8.4.25/bin/php",
+                "/home/ahmaruff/project/htmx-table-example/artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}
