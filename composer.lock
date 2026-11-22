@@ -4,8 +4,76 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4b14c3eb139c72cec2515e532b4aee3",
+    "content-hash": "5abb304ed655eeb27f33c8a97cd407fd",
     "packages": [
+        {
+            "name": "ahmaruff/laravel-htmx-table",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ahmaruff/laravel-htmx-table.git",
+                "reference": "62d3ae572c9ff80fbe948db336687cd9785d8292"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ahmaruff/laravel-htmx-table/zipball/62d3ae572c9ff80fbe948db336687cd9785d8292",
+                "reference": "62d3ae572c9ff80fbe948db336687cd9785d8292",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^10.50.3 || ^11.56.1 || ^12.0 || ^13.0",
+                "php": ">=8.2 <8.6"
+            },
+            "require-dev": {
+                "larastan/larastan": "^2.11 || ^3.15",
+                "laravel/pint": "~1.29.3",
+                "orchestra/testbench": "^8.39 || ^9.18 || ^10.12 || ^11.3",
+                "pestphp/pest": "^2.36 || ^3.8 || ^4.6 || ^5.0",
+                "pestphp/pest-plugin-laravel": "^2.4 || ^3.2 || ^4.1 || ^5.0",
+                "pestphp/pest-plugin-type-coverage": "^2.8 || ^3.2 || ^4.0 || ^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Ahmaruff\\HtmxTable\\HtmxTableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ahmaruff\\HtmxTable\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ahmad Ma'ruf",
+                    "email": "ahmadmaruf2701@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A lightweight server-driven table for Laravel using blade and HTMX",
+            "homepage": "https://github.com/ahmaruff/laravel-htmx-table",
+            "keywords": [
+                "ahmaruff",
+                "blade",
+                "datatable",
+                "htmx",
+                "laravel",
+                "laravel-htmx-table",
+                "table"
+            ],
+            "support": {
+                "docs": "https://github.com/ahmaruff/laravel-htmx-table/tree/main/docs",
+                "issues": "https://github.com/ahmaruff/laravel-htmx-table/issues",
+                "source": "https://github.com/ahmaruff/laravel-htmx-table"
+            },
+            "time": "2026-11-22T07:10:50+00:00"
+        },
         {
             "name": "brick/math",
             "version": "1.0.0",

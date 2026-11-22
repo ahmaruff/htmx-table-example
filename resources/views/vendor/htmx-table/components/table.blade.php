@@ -1,0 +1,5 @@
+@props([
+    'table',
+])
+
+{{ $table->render() }}
