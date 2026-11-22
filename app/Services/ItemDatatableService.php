@@ -58,7 +58,7 @@ class ItemDatatableService
             ->id('item-table')
             ->locale('id')
             ->searchPlaceholder('Cari Item')
-            ->perPageOptions([10, 15, 25, 100, 200])
+            ->perPageOptions([5, 10, 15, 25, 100, 200])
             ->columns([
                 Column::make('id')
                     ->dataKey('id')
@@ -75,7 +75,7 @@ class ItemDatatableService
                     ->dataKey('description')
                     ->label('Deskripsi')
                     ->searchable()
-                    ->render(fn ($row): string => Str::limit((string) $row->description, 50)),
+                    ->render(fn ($row): string => Str::limit((string) $row->description, 25)),
                 Column::make('category')
                     ->dataKey('category')
                     ->label('Kategori')
@@ -124,9 +124,9 @@ class ItemDatatableService
                     ->dataKey('manufactured_at')
                     ->label('Tanggal Manufaktur')
                     ->sortable()
-                    ->render(fn ($row): string => $row->manufactured_at ? Carbon::parse($row->manufactured_at)->format('d F Y H:i:s') : '-'),
+                    ->render(fn ($row): string => $row->manufactured_at ? Carbon::parse($row->manufactured_at)->format('d F Y') : '-'),
             ])
-            ->paginate(15);
+            ->paginate(5);
 
         return $table;
     }
