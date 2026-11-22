@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\HtmlString;
-use Illuminate\Support\Str;
 
 class ItemDatatableService
 {
@@ -54,81 +53,115 @@ class ItemDatatableService
     {
         $q = $this->buildQuery($request);
 
+        $columns = $this->columns();
         $table = HtmxTable::make($q)
             ->id('item-table')
             ->locale('id')
             ->searchPlaceholder('Cari Item')
             ->perPageOptions([5, 10, 15, 25, 100, 200])
-            ->columns([
-                Column::make('id')
-                    ->dataKey('id')
-                    ->label('ID')
-                    ->sortable()
-                    ->render(fn ($row): string => (string) $row->id),
-                Column::make('name')
-                    ->dataKey('name')
-                    ->label('Name')
-                    ->sortable()
-                    ->searchable()
-                    ->render(fn ($row): string => (string) $row->name),
-                Column::make('description')
-                    ->dataKey('description')
-                    ->label('Deskripsi')
-                    ->searchable()
-                    ->render(fn ($row): string => Str::limit((string) $row->description, 25)),
-                Column::make('category')
-                    ->dataKey('category')
-                    ->label('Kategori')
-                    ->sortable()
-                    ->searchable()
-                    ->render(fn ($row): HtmlString => new HtmlString($this->categoryBadge($row))),
-                Column::make('brand')
-                    ->dataKey('brand')
-                    ->label('Brand')
-                    ->sortable()
-                    ->searchable()
-                    ->render(fn ($row): string => (string) $row->brand),
-                Column::make('price')
-                    ->dataKey('price')
-                    ->label('Harge')
-                    ->sortable()
-                    ->render(fn ($row): string => (string) $row->price),
-                Column::make('stock')
-                    ->dataKey('stock')
-                    ->label('Stok')
-                    ->sortable()
-                    ->render(fn ($row): string => (string) $row->stock),
-                Column::make('unit')
-                    ->dataKey('unit')
-                    ->label('unit')
-                    ->sortable()
-                    ->searchable()
-                    ->render(fn ($row): string => (string) $row->unit),
-                Column::make('status')
-                    ->dataKey('status')
-                    ->label('Status')
-                    ->sortable()
-                    ->searchable()
-                    ->render(fn ($row): HtmlString => new HtmlString($this->statusBadge($row))),
-                Column::make('is_active')
-                    ->dataKey('is_active')
-                    ->label('Status Aktif')
-                    ->sortable()
-                    ->render(fn ($row): HtmlString => new HtmlString($this->isActiveBadge($row))),
-                Column::make('weight')
-                    ->dataKey('weight')
-                    ->label('Berat')
-                    ->sortable()
-                    ->render(fn ($row): string => (string) $row->weight),
-                Column::make('manufactured_at')
-                    ->dataKey('manufactured_at')
-                    ->label('Tanggal Manufaktur')
-                    ->sortable()
-                    ->render(fn ($row): string => $row->manufactured_at ? Carbon::parse($row->manufactured_at)->format('d F Y') : '-'),
-            ])
+            ->columns($columns)
             ->paginate(5);
 
         return $table;
+    }
+
+    public function columns(): array
+    {
+        return [
+            Column::make('id')
+                ->dataKey('id')
+                ->label('ID')
+                ->sortable()
+                ->render(fn ($row): string => (string) $row->id),
+            Column::make('sku')
+                ->dataKey('sku')
+                ->label('SKU')
+                ->sortable()
+                ->searchable()
+                ->render(fn ($row): HtmlString => new HtmlString(
+                    '<div class="max-w-xs truncate" title="'.e((string) $row->sku).'">'
+                    .e((string) $row->sku)
+                    .'</div>'
+                )),
+            Column::make('name')
+                ->dataKey('name')
+                ->label('Nama')
+                ->sortable()
+                ->searchable()
+                ->render(fn ($row): HtmlString => new HtmlString(
+                    '<div class="max-w-xs truncate" title="'.e((string) $row->name).'">'
+                    .e((string) $row->name)
+                    .'</div>'
+                )),
+            Column::make('description')
+                ->dataKey('description')
+                ->label('Deskripsi')
+                ->searchable()
+                ->render(fn ($row): HtmlString => new HtmlString(
+                    '<div class="max-w-xs truncate" title="'.e((string) $row->description).'">'
+                    .e((string) $row->description)
+                    .'</div>'
+                )),
+            Column::make('category')
+                ->dataKey('category')
+                ->label('Kategori')
+                ->sortable()
+                ->searchable()
+                ->render(fn ($row): HtmlString => new HtmlString($this->categoryBadge($row))),
+            Column::make('brand')
+                ->dataKey('brand')
+                ->label('Brand')
+                ->sortable()
+                ->searchable()
+                ->render(fn ($row): string => (string) $row->brand),
+            Column::make('price')
+                ->dataKey('price')
+                ->label('Harga')
+                ->sortable()
+                ->render(fn ($row): string => (string) $row->price),
+            Column::make('stock')
+                ->dataKey('stock')
+                ->label('Stok')
+                ->sortable()
+                ->render(fn ($row): string => (string) $row->stock),
+            Column::make('unit')
+                ->dataKey('unit')
+                ->label('Unit')
+                ->sortable()
+                ->searchable()
+                ->render(fn ($row): string => (string) $row->unit),
+            Column::make('status')
+                ->dataKey('status')
+                ->label('Status')
+                ->sortable()
+                ->searchable()
+                ->render(fn ($row): HtmlString => new HtmlString($this->statusBadge($row))),
+            Column::make('is_active')
+                ->dataKey('is_active')
+                ->label('Status Aktif')
+                ->sortable()
+                ->render(fn ($row): HtmlString => new HtmlString($this->isActiveBadge($row))),
+            Column::make('weight')
+                ->dataKey('weight')
+                ->label('Berat')
+                ->sortable()
+                ->render(fn ($row): string => (string) $row->weight),
+            Column::make('manufactured_at')
+                ->dataKey('manufactured_at')
+                ->label('Tanggal Manufaktur')
+                ->sortable()
+                ->render(fn ($row): string => $row->manufactured_at ? Carbon::parse($row->manufactured_at)->format('d F Y') : '-'),
+            Column::make('actions')
+                ->label('Aksi')
+                ->render(fn ($row): HtmlString => new HtmlString(
+                    '<button type="button"'
+                    .' class="rounded-md border border-gray-300 px-3 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100"'
+                    .' hx-get="'.e(route('items.edit', $row)).'"'
+                    .' hx-target="closest tr"'
+                    .' hx-swap="outerHTML"'
+                    .'>Edit</button>'
+                )),
+        ];
     }
 
     private function categoryBadge(object $row): string

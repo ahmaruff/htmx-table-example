@@ -8,3 +8,6 @@ Route::get('/', function () {
 });
 
 Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+Route::get('/items/{item}/edit', [ItemController::class, 'edit'])->name('items.edit');
+Route::get('/items/{item}/row', [ItemController::class, 'row'])->name('items.row');
+Route::put('/items/{item}', [ItemController::class, 'update'])->name('items.update');

@@ -4,7 +4,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="color-scheme" content="light">
-        <meta name="htmx-config" content='{"historyRestoreAsHxRequest": false}'>
+        <meta name="htmx-config" content='{
+            "historyRestoreAsHxRequest": false,
+            "responseHandling": [
+                {"code":"204","swap":false},
+                {"code":"[23]..","swap":true},
+                {"code":"422","swap":true},
+                {"code":"[45]..","swap":false,"error":true},
+                {"code":"...","swap":true}
+            ]
+        }'>
 
         <title>@yield('title', config('app.name', 'Laravel'))</title>
 
